@@ -7,6 +7,7 @@ use App\Enums\RolesEnum;
 use App\Filament\Resources\ProductResource\Pages;
 use App\Filament\Resources\ProductResource\Pages\EditProduct;
 use App\Filament\Resources\ProductResource\Pages\ProductImages;
+use App\Filament\Resources\ProductResource\Pages\ProductVariations;
 use App\Filament\Resources\ProductResource\Pages\ProductVariationTypes;
 use App\Filament\Resources\ProductResource\RelationManagers;
 use App\Models\Product;
@@ -161,6 +162,7 @@ class ProductResource extends Resource
             'edit' => Pages\EditProduct::route('/{record}/edit'),
             'images' => Pages\ProductImages::route('/{record}/images'),
             'variation-types' => Pages\ProductVariationTypes::route('/{record}/variation-types'),
+            'variations' => Pages\ProductVariations::route('/{record}/variations'),
         ];
     }
     public static function getRecordSubNavigation(Page $page): array
@@ -170,6 +172,7 @@ class ProductResource extends Resource
                 EditProduct::class,
                 ProductImages::class,
                 ProductVariationTypes::class,
+                ProductVariations::class,
             ]);
     }
     public static function canViewAny(): bool
