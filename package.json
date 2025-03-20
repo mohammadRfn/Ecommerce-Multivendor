@@ -26,6 +26,7 @@
         "vite": "^6.0.11"
     },
     "dependencies": {
+        "@heroicons/react": "^2.2.0",
         "daisyui": "^5.0.0"
     }
 }

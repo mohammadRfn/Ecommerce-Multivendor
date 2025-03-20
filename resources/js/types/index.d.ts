@@ -1,3 +1,5 @@
+import { Config } from "../../../vendor/tightenco/ziggy/src/js";
+
 export interface User {
     id: number;
     name: string;
@@ -52,13 +54,38 @@ export type Product = {
         price: number;
     }>
 }
+
+export type CartItem = {
+    id: number;
+    product_id: number;
+    title: string;
+    slug: string;
+    price: number;
+    quantity: number;
+    image: string;
+    option_ids: Record<string, number>;
+    options: VariationTypeOption[];
+}
+
 export type PaginationProps<T> = {
     data: Array<T>;
+}
+
+export type GroupedCartItem = {
+    user: User;
+    items: CartItem[];
+    totalPrice: number;
+    totalQuantity: number;
 }
 export type PageProps<
     T extends Record<string, unknown> = Record<string, unknown>,
 > = T & {
+    csrf_token: string;
     auth: {
         user: User;
     };
+    ziggy: Config & {location:string};
+    totalQuantity: number;
+    totalPrice: number;
+    miniCartItems: CartItem[];
 };
