@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Enums\OrderStatusEnum;
 use App\Http\Resources\OrderViewResource;
+use App\Mail\CheckoutCompleted;
+use App\Mail\NewOrderMail;
 use App\Models\CartItem;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Inertia\Inertia;
 use Stripe\Exception\SignatureVerificationException;
 use Stripe\StripeClient;
@@ -92,7 +95,10 @@ class StripeController extends Controller
                     $order->vendor_subtotal = $order->total_price -  $order->online_payment_commission - $order->website_commission;
 
                     $order->save();
+
+                    Mail::to($order->vendorUser)->send(new NewOrderMail($order));
                 }
+                Mail::to($orders[0]->user)->send(new CheckoutCompleted($orders));
 
             case 'checkout.session.completed':
                 $session = $event->data->object;
