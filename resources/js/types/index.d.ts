@@ -81,6 +81,11 @@ export type PageProps<
     T extends Record<string, unknown> = Record<string, unknown>,
 > = T & {
     csrf_token: string;
+    error: string;
+    success: {
+        message: string;
+        time: number;
+    };
     auth: {
         user: User;
     };
@@ -88,4 +93,19 @@ export type PageProps<
     totalQuantity: number;
     totalPrice: number;
     miniCartItems: CartItem[];
+};
+
+export type Order = {
+    id: number;
+    total_price: number;
+    status: string;
+    created_at: string;
+    vendorUser: {
+        id: string;
+        name: string;
+        email: string;
+        store_name: string;
+        store_address: string;
+    };
+    orderItems: OrderItems[];
 };
