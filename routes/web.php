@@ -1,9 +1,11 @@
 <?php
 
+use App\Enums\RolesEnum;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StripeController;
+use App\Http\Controllers\VendorController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -33,6 +35,9 @@ Route::middleware('auth')->group(function () {
         Route::get('/stripe/success', [StripeController::class, 'success'])->name('stripe.success');
         Route::get('/stripe/failure', [StripeController::class, 'failure'])->name('stripe.failure');
         Route::get('/stripe/webhook', [StripeController::class, 'webhook'])->name('stripe.webhook');
+        Route::post('/become-a-vendor', [VendorController::class, 'store'])->name('vendor.store');
+        Route::post('/stripe/connect', [StripeController::class, 'connect'])->name('stripe.connect')
+        ->middleware(['role:' . RolesEnum::Vendor->value]);
     });
 });
 

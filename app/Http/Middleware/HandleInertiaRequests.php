@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Http\Resources\AuthUserResource;
 use App\Services\CartService;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
@@ -41,7 +42,7 @@ class HandleInertiaRequests extends Middleware
             ...parent::share($request),
             'csrf_token' => csrf_token(),
             'auth' => [
-                'user' => $request->user(),
+                'user' => $request->user() ? new AuthUserResource($request->user()) : null,
             ],
             'ziggy' => fn () => [
                 ...(new Ziggy)->toArray(),

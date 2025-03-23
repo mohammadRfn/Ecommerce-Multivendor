@@ -147,4 +147,17 @@ class StripeController extends Controller
         }
         return response('', 200);
     }
+    public function connect()
+    {
+        if(!auth()->user()->getStripeAccountId())
+        {
+            auth()->user()->createStripeAccountActive(['type' => 'express']);
+        }
+        if(!auth()->user()->getStripeAccountActive())
+        {
+            return redirect(auth()->user()->createStripeAccountLink());
+        }
+        return back()->with('success', 'Your account is already connected.');
+
+    }
 }
