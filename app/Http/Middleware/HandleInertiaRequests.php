@@ -30,6 +30,8 @@ class HandleInertiaRequests extends Middleware
      *
      * @return array<string, mixed>
      */
+
+     
     public function share(Request $request): array
     {
         $cartService = app(CartService::class);

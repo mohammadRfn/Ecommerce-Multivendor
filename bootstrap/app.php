@@ -23,6 +23,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->validateCsrfTokens(except: [
             'stripe/webhook'
         ]); 
+        $middleware->append(\Illuminate\Http\Middleware\HandleCors::class);
         //
     })
     ->withExceptions(function (Exceptions $exceptions) {
